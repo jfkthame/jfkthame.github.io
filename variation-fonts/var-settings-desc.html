@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<html>
+<style>
+@font-face {
+  font-family: plain;
+  src: url(VotoSerifGX.latin1.ttf);
+}
+@font-face {
+  font-family: foo;
+  src: url(VotoSerifGX.latin1.ttf);
+  font-variation-settings: 'wght' 40, 'wdth' 130;
+}
+@font-face {
+  font-family: bar;
+  src: url(VotoSerifGX.latin1.ttf);
+  font-variation-settings: 'wght' 120, 'wdth' 130;
+}
+div {
+  font-variation-settings: 'opsz' 50;
+}
+</style>
+</head>
+<body>
+<p>Using the <tt>font-variation-settings</tt> property to set variations:</p>
+<div style="font: 50px plain; font-variation-settings: 'opsz' 50, 'wght' 40, 'wdth' 130;">Hello World</div>
+<div style="font: 50px plain; font-variation-settings: 'opsz' 50, 'wght' 120, 'wdth' 130;">Hello World</div>
+<hr>
+<p>Using the <tt>@font-face</tt> descriptor for weight, and property for optical size:</p>
+<div style="font: 50px foo;">Hello World</div>
+<div style="font: 50px bar;">Hello World</div>
+<hr>
+<p>Check that property overrides descriptor:</p>
+<div style="font: 50px foo; font-variation-settings: 'opsz' 50, 'wght' 75, 'wdth' 130;">Hello World</div>
+<div style="font: 50px bar; font-variation-settings: 'opsz' 50, 'wght' 75, 'wdth' 130;">Hello World</div>
