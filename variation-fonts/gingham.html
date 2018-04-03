@@ -1,10 +1,14 @@
 <style>
 @font-face { font-family: gingham; src: url(Gingham.ttf); }
-body { font-size: 72px; font-variation-settings: 'wdth' 100; }
+div { margin: 16px; }
+#test { font-size: 72px; font-variation-settings: 'wdth' 100; margin: 16px; }
 th, td { text-align: center; vertical-align: middle; padding: 0 .1em; }
 </style>
 <body>
+<div id="test">
+</div>
 <script>
+test = document.getElementById("test");
 descriptors = [
   [],
   ['normal'],
@@ -15,7 +19,7 @@ descriptors = [
   [500, 900]
 ];
 tr = document.createElement("tr");
-document.body.appendChild(tr);
+test.appendChild(tr);
 tr.style.font = "16px sans-serif";
 tr.appendChild(document.createElement("th"));
 for (j = 300; j <= 700; j += 50) {
@@ -24,7 +28,7 @@ for (j = 300; j <= 700; j += 50) {
     th.textContent = j;
 }
 tr = document.createElement("tr");
-document.body.appendChild(tr);
+test.appendChild(tr);
 th = document.createElement("th");
 tr.appendChild(th);
 th.textContent = "(using font-feature-settings)"
@@ -38,7 +42,7 @@ for (j = 300; j <= 700; j += 50) {
 }
 descriptors.forEach(function(w) {
     tr = document.createElement("tr");
-    document.body.appendChild(tr);
+    test.appendChild(tr);
     var faceName = "gingham_" + w.join("_");
     var rule = "@font-face { font-family: " + faceName + "; ";
     rule = rule + "src: url(Gingham.ttf); ";
@@ -60,3 +64,29 @@ descriptors.forEach(function(w) {
     }
 });
 </script>
+<div>
+<table border=1>
+<tr><th>Safari 11.1</th><th>Chrome 65.0.3325.181</th><th>EdgeHTML 17.17133</th></tr>
+<tr>
+<td><a href="safari-11.1-screenshot.png"><img src="safari-11.1-screenshot.png" width="100%"></a></td>
+<td><a href="chrome-65.0.3325.181-screenshot.png"><img src="chrome-65.0.3325.181-screenshot.png" width="100%"></a></td>
+<td><a href="edgehtml-17.17133-screenshot.png"><img src="edgehtml-17.17133-screenshot.png" width="100%"></a></td>
+</table>
+</div>
+<div>Bugs in Safari rendering:
+<ul>
+<li>absence of font-weight descriptor should be treated the same as <tt>font-weight: normal</tt> (the initial value),
+    so it should clamp rendering to the normal weight
+<li><tt>font-weight: normal bold</tt> should be the same as <tt>font-weight: 400 700</tt>, but fails to clamp
+    (appears to ignore the descriptor)
+</ul>
+Bugs in Chrome rendering:
+<ul>
+<li><tt>font-weight: normal bold</tt> should be the same as <tt>font-weight: 400 700</tt>,
+    but behaves like the initial value
+</ul>
+Bugs in EdgeHTML rendering:
+<ul>
+<li>the font-weight descriptor appears to be ignored, and no clamping of used font-weight occurs
+</ul>
+</div>
