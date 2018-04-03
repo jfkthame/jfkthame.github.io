@@ -1,0 +1,62 @@
+<style>
+@font-face { font-family: gingham; src: url(Gingham.ttf); }
+body { font-size: 72px; font-variation-settings: 'wdth' 100; }
+th, td { text-align: center; vertical-align: middle; padding: 0 .1em; }
+</style>
+<body>
+<script>
+descriptors = [
+  [],
+  ['normal'],
+  ['bold'],
+  ['normal', 'bold'],
+  [400, 700],
+  [100, 500],
+  [500, 900]
+];
+tr = document.createElement("tr");
+document.body.appendChild(tr);
+tr.style.font = "16px sans-serif";
+tr.appendChild(document.createElement("th"));
+for (j = 300; j <= 700; j += 50) {
+    th = document.createElement("th");
+    tr.appendChild(th);
+    th.textContent = j;
+}
+tr = document.createElement("tr");
+document.body.appendChild(tr);
+th = document.createElement("th");
+tr.appendChild(th);
+th.textContent = "(using font-feature-settings)"
+th.style.font = "16px sans-serif";
+tr.style.fontFamily = "gingham";
+for (j = 300; j <= 700; j += 50) {
+    td = document.createElement("td");
+    tr.appendChild(td);
+    td.style.fontVariationSettings = "'wdth' 100, 'wght' " + j;
+    td.textContent = "Gg";
+}
+descriptors.forEach(function(w) {
+    tr = document.createElement("tr");
+    document.body.appendChild(tr);
+    var faceName = "gingham_" + w.join("_");
+    var rule = "@font-face { font-family: " + faceName + "; ";
+    rule = rule + "src: url(Gingham.ttf); ";
+    if (w.length) {
+      rule = rule + "font-weight: " + w.join(" ") + ";"
+    }
+    rule = rule + "}"
+    document.styleSheets[0].insertRule(rule);
+    tr.style.fontFamily = faceName;
+    th = document.createElement("th");
+    tr.appendChild(th);
+    th.textContent = w.length ? "font-weight: " + w.join(" ") : "(no font-weight descriptor)";
+    th.style.font = "16px sans-serif";
+    for (j = 300; j <= 700; j += 50) {
+        td = document.createElement("td");
+        tr.appendChild(td);
+        td.style.fontWeight = j;
+        td.textContent = "Gg";
+    }
+});
+</script>
