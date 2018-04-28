@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<style>
+@font-face {
+  /* no weight/stretch descriptors: 'auto' behavior */
+  font-family: test1;
+  src: url(https://az813057.vo.msecnd.net/testdrive/var-fonts/fonts/Bahnschrift.ttf);
+}
+@font-face {
+  /* explicit weight and stretch ranges */
+  font-family: test2;
+  src: url(https://az813057.vo.msecnd.net/testdrive/var-fonts/fonts/Bahnschrift.ttf);
+  font-weight: 300 700;
+  font-stretch: 75 100;
+}
+@font-face {
+  /* explicit 'normal' weight and stretch: variations should not be used */
+  font-family: test3;
+  src: url(https://az813057.vo.msecnd.net/testdrive/var-fonts/fonts/Bahnschrift.ttf);
+  font-weight: normal;
+  font-stretch: normal;
+}
+div { font-size: 36px; font-synthesis: weight; }
+.a { font-stretch: 75%; font-weight: 300; }
+.b { font-stretch: 80%; font-weight: 450; }
+.c { font-stretch: 85%; font-weight: 600; }
+.d { font-stretch: 90%; font-weight: 700; }
+.e { font-variation-settings: "wdth" 75, "wght" 300; }
+.f { font-variation-settings: "wdth" 80, "wght" 450; }
+.g { font-variation-settings: "wdth" 85, "wght" 600; }
+.h { font-variation-settings: "wdth" 90, "wght" 700; }
+</style>
+<body>
+Base font with no variations:
+<div style="font-family: test3">
+VARIABLE FONTS
+</div>
+Should match the base font:
+<div style="font-family: test3; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
+Should use base font + (optionally) fake bold:
+<div style="font-family: test3">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
+Reference using font-variation-settings:
+<div style="font-family: test1">
+<span class="e">VAR</span><span class="f">IAB</span><span class="g">LE</span><span class="h"> FONTS</span>
+</div>
+Should all four match the reference:
+<div style="font-family: test1">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
+<div style="font-family: test1; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
+<div style="font-family: test2">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
+<div style="font-family: test2; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span><span class="d"> FONTS</span>
+</div>
