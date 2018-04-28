@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<style>
+@font-face {
+  /* no weight/stretch descriptors: 'auto' behavior */
+  font-family: test1;
+  src: url(MutatorSans.ttf);
+}
+@font-face {
+  /* explicit weight and stretch ranges */
+  font-family: test2;
+  src: url(MutatorSans.ttf);
+  font-weight: 100 700;
+  font-stretch: 50 125;
+}
+@font-face {
+  /* explicit 'normal' weight and stretch: variations should not be used */
+  font-family: test3;
+  src: url(MutatorSans.ttf);
+  font-weight: normal;
+  font-stretch: normal;
+}
+div { font-size: 36px; font-synthesis: weight; }
+.a { font-stretch: 50%; font-weight: 100; }
+.b { font-stretch: 75%; font-weight: 300; }
+.c { font-stretch: 100%; font-weight: 500; }
+.d { font-stretch: 125%; font-weight: 700; }
+.e { font-variation-settings: "wdth" 50, "wght" 100; }
+.f { font-variation-settings: "wdth" 75, "wght" 300; }
+.g { font-variation-settings: "wdth" 100, "wght" 500; }
+.h { font-variation-settings: "wdth" 125, "wght" 700; }
+</style>
+<body>
+Base font with no variations:
+<div style="font-family: test3">
+VARIABLE FONTS
+</div>
+Should match the base font:
+<div style="font-family: test3; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
+Should use base font, plus apply synthetic-bold to "FONTS":
+<div style="font-family: test3">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
+<hr>
+Reference using font-variation-settings:
+<div style="font-family: test1">
+<span class="e">VAR</span><span class="f">IAB</span><span class="g">LE</span> <span class="h">FONTS</span>
+</div>
+Should all four match the above reference:
+<div style="font-family: test1">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
+<div style="font-family: test1; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
+<div style="font-family: test2">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
+<div style="font-family: test2; font-synthesis: none">
+<span class="a">VAR</span><span class="b">IAB</span><span class="c">LE</span> <span class="d">FONTS</span>
+</div>
