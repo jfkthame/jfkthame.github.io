@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<style>
+span { background-color: yellow; display: inline-block; letter-spacing: -.1em; }
+</style>
+<pre>
+</pre>
+<script>
+let pre = document.getElementsByTagName("pre")[0];
+let test = "";
+for (i = 7.0; i <= 8.125; i += 0.125) {
+  test += `<span style="width:${i}ch">${i}ch</span>&#9;foo\n`;
+}
+pre.innerHTML = test;
+</script>
