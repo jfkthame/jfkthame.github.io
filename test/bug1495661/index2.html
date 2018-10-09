@@ -8,7 +8,7 @@
   <script>
     onmousemove = function(e) {
       var container = document.getElementById("demoTwoContainer");
-      container.style.fontVariationSettings = "'wght' " + e.pageX + ", 'ital' " + e.pageY / 300;
+      container.style.fontSize = ((e.pageX + e.pageY) / 5) + "px";
     }
   </script>
 
