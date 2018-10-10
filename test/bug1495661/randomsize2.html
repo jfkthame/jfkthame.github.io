@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <style>
+@font-face{
+  font-family: Charis;
+  src: url('CharisSIL-R.ttf');
+}
+
+html{
+  font-family: Charis, monospace;
+  font-size: 16pt;
+  text-rendering: optimizeLegibility !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+.demo-container{
+  width: 90%;
+  margin: auto;
+  margin-top: 0;
+  background-color: #fff4b7;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+#demoTwoContainer{ width: 100%; font-size: 6rem; margin-left: -0.5rem; padding-bottom: 0.5rem; }
+    </style>
+  </head>
+
+  <script>
+    function run() {
+      var container = document.getElementById("demoTwoContainer");
+      container.style.fontSize = Math.random() * 500 + "px";
+      setTimeout("run()", 0);
+    }
+  </script>
+
+  <body onload="run()">
+
+    <div class="demo-container noselect">
+        <div id="demoTwoContainer" style="height: 547px;">
+        <div>abc</div>
+        </div>
+    </div>
+  
+  </body>
+</html>
