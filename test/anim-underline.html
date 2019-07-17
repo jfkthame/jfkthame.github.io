@@ -1,0 +1,36 @@
+<meta charset=utf-8>
+<style>
+div {
+  font: 50px serif;
+}
+a {
+  color: blue;
+  text-decoration: underline;
+  text-decoration-width: 0px;
+  text-underline-offset: 200vh;
+  text-decoration-color: rgba(255,0,0,0.0);
+}
+a:hover {
+  animation-duration: 1s;
+  animation-name: foo;
+  text-decoration-width: 1.5ex;
+  text-underline-offset: -1ex;
+  text-decoration-color: rgba(255,255,0,0.5);
+}
+@keyframes foo {
+  from {
+    text-decoration-width: 0px;
+    text-underline-offset: 200vh;
+    text-decoration-color: rgba(255,0,0,0.0);
+  }
+  to {
+    text-decoration-width: 1.5ex;
+    text-underline-offset: -1ex;
+    text-decoration-color: rgba(255,255,0,0.5);
+  }
+}
+</style>
+<div>Hover over <a href="">this fake link</a> with Firefox Nightly</div>
+<pre>about:config settings required:
+layout.css.text-underline-offset.enabled = true
+layout.css.text-decoration-width.enabled = true</pre>
