@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<style>
+@font-face { font-family:awami; src: url(AwamiNastaliq-Regular.woff); }
+p { font: 36px/2 times, serif; text-underline-offset: .5em;
+    animation: 5s infinite alternate anim; animation-timing-function: linear; }
+u { text-decoration-thickness: 2px; text-decoration-color: red; }
+.arial { font-family: arial, sans-serif; }
+.awami { font-family: awami, sans-serif; }
+@keyframes anim {
+  from { text-underline-offset: .6em; }
+  to { text-underline-offset: -2.1em; }
+}
+</style>
+<div dir=rtl>
+<p><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+<p style="unicode-bidi:bidi-override"><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+<p class=arial><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+<p class=arial style="unicode-bidi:bidi-override"><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+<p class=awami><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+<p class=awami style="unicode-bidi:bidi-override"><u>عوامی نستعليق abcdefgh عوامی نستعليق ijklmnop</u></p>
+</div>
