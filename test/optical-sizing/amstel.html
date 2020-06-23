@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<style>
+@font-face {
+  font-family: amstelvar;
+  src: url("Amstelvar-Roman[wdth,wght,opsz].ttf");
+}
+body { font: 12px sans-serif; }
+#test {
+  font-family: amstelvar, serif;
+}
+td { padding: 3px; text-align: center; }
+td span { position: relative; display: inline-block; width: -moz-fit-content; color: blue; }
+td span span { position: absolute; left: 0; color: #ff8888; font-optical-sizing: auto; font-variation-settings: normal; z-index: -1; }
+td:nth-child(1) { font-optical-sizing: none; }
+td:nth-child(2) { font-optical-sizing: auto; }
+td:nth-child(3) { font-optical-sizing: none; }
+td:nth-child(4) { font-optical-sizing: none; }
+.label { bottom: -8px; color: red; font: 8px monospace; }
+th { font: 12px monospace; }
+</style>
+<label><input type=checkbox id=safarihack onchange="update()">&nbsp;Enable opsz hack for Safari</label>
+<table id=test>
+  <tr>
+    <th>font-optical-sizing: none
+    <th>font-optical-sizing: auto
+    <th>font-variation-settings: "opsz" as px
+    <th>font-variation-settings: "opsz" as pt
+  </tr>
+</table>
+<script>
+function createEntries(from, to, step) {
+  let t = document.getElementById("test");
+  for (let i = from; i <= to; i = i * step) {
+    i = Math.round(i);
+    let tr = document.createElement("tr");
+    tr.style.fontSize = i + "px";
+    test.appendChild(tr);
+    for (let j = 0; j < 4; j++) {
+      let td = document.createElement("td");
+      tr.appendChild(td);
+      let span = document.createElement("span");
+      span.textContent = "AmstelVar" + i;
+      td.appendChild(span);
+      let bg = document.createElement("span");
+      bg.textContent = "AmstelVar" + i;
+      span.appendChild(bg);
+    }
+  }
+  let elems = document.querySelectorAll("td:nth-child(3)");
+  let safariHack = "";
+  // Hack to work around broken 'opsz' support in Safari when the variation axis is set
+  // to exactly the same value as the font size. (Disable this to see broken result.)
+  if (document.getElementById("safarihack").checked && navigator.userAgent.indexOf("Safari") >= 0) {
+    safariHack = ".01";
+  }
+  for (let i = 0; i < elems.length; i++) {
+    let e = elems[i];
+    e.style.fontVariationSettings = "'opsz' " + e.parentElement.style.fontSize.replace("px", safariHack);
+  }
+  elems = document.querySelectorAll("td:nth-child(4)");
+  for (let i = 0; i < elems.length; i++) {
+    let e = elems[i];
+    e.style.fontVariationSettings = "'opsz' " + e.parentElement.style.fontSize.replace("px", "") * 0.75;
+  }
+}
+
+function labelWidths() {
+  let oldLabels = document.getElementsByClassName("label");
+  for (let i = oldLabels.length - 1; i >= 0; i--) {
+    let e = oldLabels[i];
+    e.parentNode.removeChild(e);
+  }
+  elems = document.getElementsByTagName("td");
+  for (let i = 0; i < elems.length; i++) {
+    let e = elems[i];
+    let span = document.createElement("span");
+    span.textContent = e.firstChild.offsetWidth;
+    span.classList = "label";
+    e.firstChild.appendChild(span);
+  }
+}
+
+function update() {
+  let oldRows = document.getElementsByTagName("tr");
+  for (let i = oldRows.length - 1; i > 0; i--) {
+    let e = oldRows[i];
+    e.parentNode.removeChild(e);
+  }
+  createEntries(6, 72, 1.2);
+  labelWidths();
+}
+
+document.fonts.load("16px amstelvar").then(update);
+
+window.onresize = labelWidths;
+</script>
