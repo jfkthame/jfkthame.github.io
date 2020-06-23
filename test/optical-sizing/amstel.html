@@ -5,7 +5,8 @@
   font-family: amstelvar;
   src: url("Amstelvar-Roman[wdth,wght,opsz].ttf");
 }
-body { font: 12px sans-serif; }
+body { font: 16px amstelvar, serif; }
+label, th { font: 12px monospace; }
 #test {
   font-family: amstelvar, serif;
 }
@@ -17,11 +18,12 @@ td:nth-child(2) { font-optical-sizing: auto; }
 td:nth-child(3) { font-optical-sizing: none; }
 td:nth-child(4) { font-optical-sizing: none; }
 .label { bottom: -8px; color: red; font: 8px monospace; }
-th { font: 12px monospace; }
+.hiddenHeader { display: none; }
 </style>
+<p>Testcase for AmstelVar optical sizing</p>
 <label><input type=checkbox id=safarihack onchange="update()">&nbsp;Enable opsz hack for Safari</label>
 <table id=test>
-  <tr>
+  <tr class=hiddenHeader>
     <th>font-optical-sizing: none
     <th>font-optical-sizing: auto
     <th>font-variation-settings: "opsz" as px
@@ -89,9 +91,17 @@ function update() {
   }
   createEntries(6, 72, 1.2);
   labelWidths();
+  let headerRows = document.getElementsByClassName("hiddenHeader");
+  if (headerRows.length > 0) {
+    headerRows[0].className = "";
+  }
 }
 
-document.fonts.load("16px amstelvar").then(update);
+if (document.fonts === undefined) {
+  setTimeout(update, 1000);
+} else {
+  document.fonts.ready.then(update);
+}
 
 window.onresize = labelWidths;
 </script>
