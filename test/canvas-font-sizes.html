@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+canvas {
+  border: 1px solid gray;
+  margin: 1em;
+}
+</style>
+</head>
+<body>
+<p>Main-thread canvas element:</p>
+<canvas id='mainthread' width=600 height=450></canvas>
+<br>
+<p>Offscreen canvas drawn via Worker:</p>
+<canvas id='offscreen' width=600 height=450></canvas>
+<br>
+
+<script id='sharedFunctions'>
+// Functions that will also be used in the worker code
+function test(size, font, x, y) {
+  ctx.font = size + " " + font;
+  let em = ctx.measureText("\u2014").width;
+  ctx.fillText(font + " (" + size + ")", x, y);
+  ctx.font = "9px monospace";
+  ctx.fillText("em = " + em, x, y + 10);
+}
+
+function drawContent() {
+  let y = 20;
+  ["9px", "10px", "12px", "13px", "14px", "16px", "18px", "20px", "24px"].forEach(size => {
+    test(size, "sans-serif", 50, y);
+    test(size, "monospace", 300, y);
+    y += 30;
+  });
+
+  y = 300;
+  ["x-small", "small", "medium", "large", "x-large"].forEach(size => {
+    test(size, "sans-serif", 50, y);
+    test(size, "monospace", 300, y);
+    y += 30;
+  });
+}
+</script>
+
+<script>
+// Create the worker to draw to the offscreen canvas
+const workerCode = `
+${document.querySelector('#sharedFunctions').textContent}
+
+let ctx = null;
+self.onmessage = function(e) {
+  switch (e.data.msg) {
+    case 'start':
+      const canvas = e.data.canvas;
+      ctx = canvas.getContext('2d');
+      drawContent();
+      break;
+  }
+};
+`
+const blob = new Blob([workerCode], {type: 'text/javascript'});
+const url = URL.createObjectURL(blob);
+const canvas = document.querySelector('#offscreen');
+const worker = new Worker(url);
+worker.onmessage = e => {
+  switch (e.data.msg) {
+    case 'render':
+      const ctx = canvas.getContext('bitmaprenderer');
+      ctx.transferFromImageBitmap(e.data.bitmap);
+      break;
+  }
+};
+
+const offscreen = canvas.transferControlToOffscreen();
+worker.postMessage({msg: 'start', canvas: offscreen}, [offscreen]);
+
+URL.revokeObjectURL(url);
+
+// Draw the main-thread version of the canvas
+const ctx = document.querySelector('#mainthread').getContext("2d");
+
+drawContent();
+</script>
+
+</body>
+</html>
