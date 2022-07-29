@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>SVG</title>
+    <style>
+        .test, .ref {
+            width: 300px;
+            font: italic 1em/1.2 Times New Roman, serif;
+            font-kerning: none;
+        }
+    </style>
+</head>
+<body>
+<div class=test>
+    Test:<br>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
+        <text id="test" x="10" y="30">
+            <tspan>fooof</tspan>
+        </text>
+    </svg>
+</div>
+<div class=ref>
+    Reference:<br>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 50">
+        <text id="ref" x="10" y="30">
+            <tspan>ofofo</tspan>
+        </text>
+    </svg>
+</div>
+<p>The test and reference <tt>text</tt> elements should report the same <tt>getBoundingClientRect()</tt> size:</p>
+<pre id="data">
+  Test height: <span id=h1></span>
+       width:  <span id=w1></span> 
+
+   Ref height: <span id=h2></span>
+       width:  <span id=w2></span> 
+</pre>
+<p>See <a href="https://drafts.csswg.org/cssom-view/#extensions-to-the-range-interface">the spec</a>, which says:
+  <blockquote>
+  The bounds of these DOMRect objects are computed using font metrics;
+  thus, for horizontal writing, the vertical dimension of each box is determined by the font ascent and descent,
+  and the horizontal dimension by the text advance width.
+  </blockquote>
+So the width of the returned rect should not be affected by the sidebearings of the first and last glyphs.
+</p>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let bbox1 = document.querySelector('#test').getBoundingClientRect();
+    let bbox2 = document.querySelector('#ref').getBoundingClientRect();
+    document.querySelector("#h1").textContent = bbox1.height;
+    document.querySelector("#w1").textContent = bbox1.width;
+    document.querySelector("#h2").textContent = bbox2.height;
+    document.querySelector("#w2").textContent = bbox2.width;
+    if (bbox1.height != bbox2.height) {
+      document.querySelector("#h1").style.color = "red";
+    }
+    if (bbox1.width != bbox2.width) {
+      document.querySelector("#w1").style.color = "red";
+    }
+  })
+</script>
+</body>
+</html>
