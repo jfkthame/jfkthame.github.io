@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<head>
+<meta charset=utf-8>
+<style>
+@font-face {
+  font-family: test;
+  src: url("fonts/test_glyphs-glyf_colr_1_variable.ttf"), url("test_glyphs-glyf_colr_1_variable.ttf");
+}
+#test {
+  font: 50px/1 test;
+  padding-left: 10px;
+}
+#controls {
+  width: 40%;
+  float: right;
+  columns: 2;
+  line-height: 2em;
+}
+p {
+  margin: 5px;
+}
+input {
+  vertical-align: middle;
+}
+</style>
+</head>
+<body>
+<div id=controls>
+<tt>SWPS</tt><input id='SWPS' type=range min='-90.0' value='0' max='90.0' step='1' oninput='update()'> <span id=valSWPS></span><br>
+<tt>SWPE</tt><input id='SWPE' type=range min='-90.0' value='0' max='90.0' step='1' oninput='update()'> <span id=valSWPE></span><br>
+<tt>SCOX</tt><input id='SCOX' type=range min='-200.0' value='0' max='200.0' step='1' oninput='update()'> <span id=valSCOX></span><br>
+<tt>SCOY</tt><input id='SCOY' type=range min='-200.0' value='0' max='200.0' step='1' oninput='update()'> <span id=valSCOY></span><br>
+<tt>SCSX</tt><input id='SCSX' type=range min='-2.0' value='0.0' max='1.99994' step='0.01' oninput='update()'> <span id=valSCSX></span><br>
+<tt>SCSY</tt><input id='SCSY' type=range min='-2.0' value='0.0' max='1.99994' step='0.01' oninput='update()'> <span id=valSCSY></span><br>
+<tt>GRX0</tt><input id='GRX0' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRX0></span><br>
+<tt>GRY0</tt><input id='GRY0' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRY0></span><br>
+<tt>GRX1</tt><input id='GRX1' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRX1></span><br>
+<tt>GRY1</tt><input id='GRY1' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRY1></span><br>
+<tt>GRX2</tt><input id='GRX2' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRX2></span><br>
+<tt>GRY2</tt><input id='GRY2' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRY2></span><br>
+<tt>GRR0</tt><input id='GRR0' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRR0></span><br>
+<tt>GRR1</tt><input id='GRR1' type=range min='-1000.0' value='0' max='1000.0' step='1' oninput='update()'> <span id=valGRR1></span><br>
+<tt>COL1</tt><input id='COL1' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valCOL1></span><br>
+<tt>COL2</tt><input id='COL2' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valCOL2></span><br>
+<tt>COL3</tt><input id='COL3' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valCOL3></span><br>
+<tt>ROTA</tt><input id='ROTA' type=range min='0.0' value='0' max='539.98901' step='1' oninput='update()'> <span id=valROTA></span><br>
+<tt>ROTX</tt><input id='ROTX' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valROTX></span><br>
+<tt>ROTY</tt><input id='ROTY' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valROTY></span><br>
+<tt>SKXA</tt><input id='SKXA' type=range min='-90.0' value='0' max='90.0' step='1' oninput='update()'> <span id=valSKXA></span><br>
+<tt>SKYA</tt><input id='SKYA' type=range min='-90.0' value='0' max='90.0' step='1' oninput='update()'> <span id=valSKYA></span><br>
+<tt>SKCX</tt><input id='SKCX' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valSKCX></span><br>
+<tt>SKCY</tt><input id='SKCY' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valSKCY></span><br>
+<tt>TRXX</tt><input id='TRXX' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valTRXX></span><br>
+<tt>TRYX</tt><input id='TRYX' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valTRYX></span><br>
+<tt>TRXY</tt><input id='TRXY' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valTRXY></span><br>
+<tt>TRYY</tt><input id='TRYY' type=range min='-2.0' value='0.0' max='2.0' step='0.01' oninput='update()'> <span id=valTRYY></span><br>
+<tt>TRDX</tt><input id='TRDX' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valTRDX></span><br>
+<tt>TRDY</tt><input id='TRDY' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valTRDY></span><br>
+<tt>TLDX</tt><input id='TLDX' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valTLDX></span><br>
+<tt>TLDY</tt><input id='TLDY' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valTLDY></span><br>
+<tt>CLXI</tt><input id='CLXI' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valCLXI></span><br>
+<tt>CLYI</tt><input id='CLYI' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valCLYI></span><br>
+<tt>CLXA</tt><input id='CLXA' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valCLXA></span><br>
+<tt>CLYA</tt><input id='CLYA' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valCLYA></span><br>
+<tt>CLIO</tt><input id='CLIO' type=range min='-500.0' value='0' max='500.0' step='1' oninput='update()'> <span id=valCLIO></span><br>
+<tt>APH1</tt><input id='APH1' type=range min='-1.0' value='0.0' max='0.0' step='0.01' oninput='update()'> <span id=valAPH1></span><br>
+<tt>APH2</tt><input id='APH2' type=range min='-1.0' value='0.0' max='0.0' step='0.01' oninput='update()'> <span id=valAPH2></span><br>
+<tt>APH3</tt><input id='APH3' type=range min='-1.0' value='0.0' max='0.0' step='0.01' oninput='update()'> <span id=valAPH3></span><br>
+</div>
+<div id=test>
+<p>&#xF0100;&#xF0101;&#xF0102;&#xF0103;
+<p>&#xF0200;&#xF0201;&#xF0202;&#xF0203;&#xF0204;&#xF0205;&#xF0206;&#xF0207;&#xF0208;&#xF0209;&#xF020A;&#xF020B;&#xF020C;&#xF020D;<br>
+&#xF020E;&#xF020F;&#xF0210;&#xF0211;&#xF0212;&#xF0213;&#xF0214;&#xF0215;&#xF0216;&#xF0217;
+<p>&#xF0300;&#xF0301;&#xF0302;&#xF0303;&#xF0304;&#xF0305;
+<p>&#xF0500;&#xF0501;&#xF0502;
+<p>&#xF0503;&#xF0504;&#xF0505;
+<p>&#xF0600;&#xF0601;&#xF0602;&#xF0603;
+<p>&#xF0700;&#xF0701;&#xF0702;&#xF0703;&#xF0704;&#xF0705;
+<p>&#xF0800;&#xF0801;&#xF0802;&#xF0803;
+<p>&#xF0900;&#xF0901;&#xF0902;&#xF0903;&#xF0904;&#xF0905;&#xF0906;
+<p>&#xF0A00;&#xF0A01;&#xF0A02;&#xF0A03;&#xF0A04;&#xF0A05;&#xF0A06;&#xF0A07;&#xF0A08;&#xF0A09;&#xF0A0A;&#xF0A0B;&#xF0A0C;&#xF0A0D;<br>
+&#xF0A0E;&#xF0A0F;&#xF0A10;&#xF0A11;&#xF0A12;&#xF0A13;&#xF0A14;&#xF0A15;&#xF0A16;&#xF0A17;&#xF0A18;&#xF0A19;&#xF0A1A;&#xF0A1B;
+<p>&#xF0B00;&#xF0B01;&#xF0B02;&#xF0B03;&#xF0B04;&#xF0B05;&#xF0B06;&#xF0B07;
+<p>&#xF0C00;&#xF0C01;&#xF0C02;&#xF0C03;&#xF0C04;&#xF0C05;&#xF0C06;&#xF0C07;&#xF0C08;&#xF0C09;
+<p>&#xF0C0A;
+<p>&#xF0D00;
+<p>&#xF0E00;&#xF0E01;
+<p>&#xF0F00;&#xF0F01;&#xF0F02;&#xF0F03;&#xF0F04;&#xF0F05;&#xF0F06;
+<p>&#xF1000;
+</div><script>
+function update() {
+  let inputs = document.getElementsByTagName("input");
+  let settings = [];
+  for (i = 0; i < inputs.length; i++) {
+    let val = inputs[i].value;
+    settings.push("'"  + inputs[i].id + "'" + val);
+    document.getElementById("val" + inputs[i].id).textContent = val;
+  }
+  document.getElementById("test").style.fontVariationSettings = settings.join(", ");
+}
+update();
+</script>
