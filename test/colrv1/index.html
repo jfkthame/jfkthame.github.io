@@ -40,7 +40,7 @@ let glyphs = [
 ];
 let txt = "";
 for (i = 0; i < 6; i++) {
-  txt = txt + glyphs.slice(i * 12, i * 12 + 11).map(c => String.fromCodePoint(c)).join("") + "<br>";
+  txt = txt + glyphs.slice(i * 12, (i + 1) * 12).map(c => String.fromCodePoint(c)).join("") + "<br>";
 }
 test.innerHTML = txt;
 testvar.innerHTML = txt;
