@@ -16,8 +16,29 @@ div {
 #test {
   font: 120px/1 test;
 }
-#testvar {
+#testvar, #test2 {
   font: 120px/1 testvar;
+}
+#test2 p {
+  font: 12px monospace;
+}
+#test2 :nth-child(1) {
+  font-variation-settings: initial;
+}
+#test2 :nth-child(2) {
+  font-variation-settings: "COL3" 0.5;
+}
+#test2 :nth-child(3) {
+  font-variation-settings: "COL3" 1.0;
+}
+#test2 :nth-child(4) {
+  font-variation-settings: "COL2" 0.5, "COL3" 0.5;
+}
+#test2 :nth-child(5) {
+  font-variation-settings: "COL1" 0.25, "COL2" 0.5, "COL3" 0.25;
+}
+#test2 :nth-child(6) {
+  font-variation-settings: "COL1" -0.25, "COL2" 0.5, "COL3" 1.0;
 }
 </style>
 </head>
@@ -26,6 +47,9 @@ div {
 </div>
 <hr>
 <div id=testvar>
+</div>
+<hr>
+<div id=test2>
 </div>
 <script>
 let glyphs = [
@@ -44,4 +68,15 @@ for (i = 0; i < 6; i++) {
 }
 test.innerHTML = txt;
 testvar.innerHTML = txt;
+
+let linearGlyphs = [0xF0500, 0xF0501, 0xF0502];
+let radialGlyphs = [0xF0503, 0xF0504, 0xF0505];
+for (i = 0; i < 6; i++) {
+  let d = document.createElement("div");
+  d.innerHTML = "<p></p>" +
+                  linearGlyphs.map(c => String.fromCodePoint(c)).join(" ") + "<br>" +
+                  radialGlyphs.map(c => String.fromCodePoint(c)).join(" ");
+  test2.appendChild(d);
+  d.firstChild.textContent = window.getComputedStyle(d).fontVariationSettings;
+}
 </script>
