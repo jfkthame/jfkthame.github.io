@@ -74,7 +74,7 @@ let radialGlyphs = [0xF0503, 0xF0504, 0xF0505];
 for (i = 0; i < 6; i++) {
   let d = document.createElement("div");
   d.innerHTML = "<p></p>" +
-                  linearGlyphs.map(c => String.fromCodePoint(c)).join(" ") + "<br>" +
+                  linearGlyphs.map(c => String.fromCodePoint(c)).join(" ") + " &nbsp; " +
                   radialGlyphs.map(c => String.fromCodePoint(c)).join(" ");
   test2.appendChild(d);
   d.firstChild.textContent = window.getComputedStyle(d).fontVariationSettings;
