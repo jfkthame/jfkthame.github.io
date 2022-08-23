@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<title>COLRv1 font test</title>
+<style>
+@font-face { font-family: CAhem; src: url("CAhem.ttf"); }
+.test { font: 160px/1 CAhem; margin: 10px; padding: 10px; }
+#a { font-variation-settings: "GRR1" 0; }
+#a1 { font-variation-settings: "GRR1" 100; }
+#a2 { font-variation-settings: "GRR1" 200; }
+#a3 { font-variation-settings: "GRR1" 300; }
+#b1 { font-variation-settings: "GRR1" -100; }
+#b2 { font-variation-settings: "GRR1" -200; }
+#b3 { font-variation-settings: "GRR1" -300; }
+#d { font-variation-settings: "GRR1" 0; animation: 10s linear infinite grr1; }
+@keyframes grr1 {
+  0% { font-variation-settings: "GRR1" 0; }
+  25% { font-variation-settings: "GRR1" 300; }
+  50% { font-variation-settings: "GRR1" 0; }
+  75% { font-variation-settings: "GRR1" -300; }
+  100% { font-variation-settings: "GRR1" 0; }
+}
+#e { font-variation-settings: "COL1" 0.0; }
+#f { font-variation-settings: "COL1" 1.0; }
+#g { font-variation-settings: "COL1" 2.0; }
+#h { font-variation-settings: "COL1" -1.0; }
+#i { font-variation-settings: "COL1" -2.0; }
+#j { font-variation-settings: "COL1" 0.0; animation: 10s linear infinite col1; }
+@keyframes col1 {
+  0% { font-variation-settings: "COL1" 0.0; }
+  25% { font-variation-settings: "COL1" 2.0; }
+  50% { font-variation-settings: "COL1" 0.0; }
+  75% { font-variation-settings: "COL1" -2.0; }
+  100% { font-variation-settings: "COL1" 0.0; }
+}
+#k { font-variation-settings: "COL3" 0.0; }
+#l { font-variation-settings: "COL3" 1.0; }
+#m { font-variation-settings: "COL3" 2.0; }
+#n { font-variation-settings: "COL3" -1.0; }
+#o { font-variation-settings: "COL3" -2.0; }
+#p { font-variation-settings: "COL3" 0.0; animation: 10s linear infinite col3; }
+@keyframes col3 {
+  0% { font-variation-settings: "COL3" 0.0; }
+  25% { font-variation-settings: "COL3" 2.0; }
+  50% { font-variation-settings: "COL3" 0.0; }
+  75% { font-variation-settings: "COL3" -2.0; }
+  100% { font-variation-settings: "COL3" 0.0; }
+}
+#q { font-variation-settings: "GRR1" -25; }
+</style>
+
+<div class="test">
+<!--
+ABC @<br>DEFGHI<br>JKLMNO<br>PQRST<br>UVW<br>XYZ<br>
+-->
+0123<br>
+<span id=a>3</span><span id=a1>3</span><span id=a2>3</span><span id=a3>3</span><span id=b1>3</span><span id=b2>3</span><span id=b3>3</span><span id=d>3</span><br>
+<span id=e>4</span><span id=f>4</span><span id=g>4</span><span id=h>4</span><span id=i>4</span><span id=j>4</span><br>
+<span id=k>4</span><span id=l>4</span><span id=m>4</span><span id=n>4</span><span id=o>4</span><span id=p>4</span><br>
+ab c<span id=q>d</span>
+</div>
