@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<meta charset=utf-8>
+<style id=styles>
+@font-face {
+  font-family: CAhem;
+  src: url("CAhem.ttf");
+}
+div#test > span {
+  font: 500px/1 CAhem;
+  border: 1px solid gray;
+  margin: 10px;
+  position: relative;
+}
+.r0 {
+  box-sizing: border-box;
+  position: absolute;
+  border: 1px solid black;
+}
+.r1 {
+  box-sizing: border-box;
+  position: absolute;
+  border: 1px solid black;
+}
+input {
+  vertical-align: middle;
+}
+</style>
+
+<body onload="update()">
+<div id=test>
+ <span>@<span class=r0></span><span class=r1></span></span>
+ <span>#<span class=r0></span><span class=r1></span></span>
+ <span>$<span class=r0></span><span class=r1></span></span>
+</div>
+
+<p>Radius<sub>0</sub> <input type=range id=r0 min=-300 max=300 value=20 oninput="update()"> <span id=r0val></span></p>
+<p>Radius<sub>1</sub> <input type=range id=r1 min=-300 max=300 value=50 oninput="update()"> <span id=r1val></span></p>
+
+<p><span style="color:red">Stop<sub>1</sub></span> <input type=range id=s1 min=-2.0 max=2.0 value=0.0 step=0.1 oninput="update()"> <span id=s1val></span></p>
+<p><span style="color:green">Stop<sub>2</sub></span> <input type=range id=s2 min=-2.0 max=2.0 value=0.5 step=0.1 oninput="update()"> <span id=s2val></span></p>
+<p><span style="color:blue">Stop<sub>3</sub></span> <input type=range id=s3 min=-2.0 max=2.0 value=1.0 step=0.1 oninput="update()"> <span id=s3val></span></p>
+
+<script>
+function update() {
+  fontstyle = document.styleSheets[0].rules[1].style;
+  valr0 = r0.value;
+  valr1 = r1.value;
+  vals1 = s1.value;
+  vals2 = s2.value;
+  vals3 = s3.value;
+  fontstyle.fontVariationSettings =
+    "'GRR0' " + valr0 + ", " +
+    "'GRR1' " + valr1 + ", " +
+    "'COL1' " + vals1 + ", " +
+    "'COL2' " + vals2 + ", " +
+    "'COL3' " + vals3;
+  r0val.textContent = valr0;
+  r1val.textContent = valr1;
+  s1val.textContent = vals1;
+  s2val.textContent = vals2;
+  s3val.textContent = vals3;
+
+  r0style = document.styleSheets[0].rules[2].style;
+  r1style = document.styleSheets[0].rules[3].style;
+
+  absr0 = Math.abs(valr0);
+  r0style.borderRadius = absr0 / 2 + "px";
+  r0style.width = absr0 + "px";
+  r0style.height = absr0 + "px";
+  r0style.top = (250 - absr0 / 2) + "px";
+  r0style.left = (200 - absr0 / 2) + "px";
+  if (valr0 < 0) {
+    r0style.borderColor = "cyan";
+  } else {
+    r0style.borderColor = "black";
+  }
+
+  absr1 = Math.abs(valr1);
+  r1style.borderRadius = absr1 / 2 + "px";
+  r1style.width = absr1 + "px";
+  r1style.height = absr1 + "px";
+  r1style.top = (250 - absr1 / 2) + "px";
+  r1style.left = (300 - absr1 / 2) + "px";
+  if (valr1 < 0) {
+    r1style.borderColor = "cyan";
+  } else {
+    r1style.borderColor = "black";
+  }
+}
+</script>
