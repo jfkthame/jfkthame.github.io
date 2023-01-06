@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<title>Coordination of kern and palt features for CJK kerning</title>
+<style>
+span {
+  font-family: "Yu Gothic UI";
+  font-size: 50px;
+}
+.test1 {
+  font-feature-settings: "kern" 0, "palt" 0;
+}
+.test2 {
+  font-feature-settings: "kern" 1, "palt" 0;
+}
+.test3 {
+  font-feature-settings: "kern" 0, "palt" 1;
+}
+.test4 {
+  font-feature-settings: "kern" 1, "palt" 1;
+}
+</style>
+</head>
+<body>
+<div class=test1><span>幻塔</span><span>アートフェスティバル</span><span>イラストコンテスト</span><span>開催</span> (no-kern, no-palt) </div>
+<div class=test2><span>幻塔</span><span>アートフェスティバル</span><span>イラストコンテスト</span><span>開催</span> (kern, no-palt) </div>
+<div class=test3><span>幻塔</span><span>アートフェスティバル</span><span>イラストコンテスト</span><span>開催</span> (no-kern, palt) </div>
+<div class=test4><span>幻塔</span><span>アートフェスティバル</span><span>イラストコンテスト</span><span>開催</span> (kern, palt) </div>
+</body>
+<script>
+let divs = document.getElementsByTagName("div");
+for (let i = 0; i < divs.length; i++) {
+  let tt = document.createElement("tt");
+  let spans = divs[i].getElementsByTagName("span");
+  for (let j = 0; j < spans.length; j++) {
+    tt.textContent += spans[j].getBoundingClientRect().width + " ";
+  }
+  divs[i].appendChild(tt);
+}
+</script>
